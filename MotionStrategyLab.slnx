@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="MotionStrategyLab.Core/MotionStrategyLab.Core.csproj" />
+  <Project Path="MotionStrategyLab.Drivers/MotionStrategyLab.Drivers.csproj" />
+  <Project Path="MotionStrategyLab.UI/MotionStrategyLab.UI.csproj" />
+</Solution>
