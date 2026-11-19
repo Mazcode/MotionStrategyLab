@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 712" width="680" height="712" role="img">
+  <title>V1 目标结构 · 类图与改动清单</title>
+  <desc>四层结构：Core 包含接口、模型、规划器、注册表与控制器；Drivers 实现卡接口；UI.WinForms 的 Program.cs 为组合根；虚线框为未来扩展。</desc>
+  <style>
+    .ht { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-size: 14px; font-weight: 500; fill: #1a1a1a; }
+    .lt { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-size: 12px; font-weight: 500; fill: #1a1a1a; }
+    .ct { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-size: 11px; font-weight: 500; fill: #1a1a1a; }
+    .cs { font-family: "Microsoft YaHei", "Segoe UI", sans-serif; font-size: 11px; font-weight: 400; fill: #5f5e5a; }
+    .bgSecondary { fill: #f7f7f5; }
+    .bgPrimary { fill: #ffffff; }
+    .border { stroke: #cfcdc5; stroke-width: 0.5; }
+    .borderInfo { stroke: #378add; stroke-width: 0.5; }
+  </style>
+
+  <text class="ht" x="40" y="46" dominant-baseline="central">V1 目标结构 · 类图与改动清单</text>
+  <text class="cs" x="40" y="66" dominant-baseline="central">虚线框为未来扩展，V1 不实现；但接口签名现在就按跨进程友好来定</text>
+
+  <rect x="40" y="80" width="600" height="296" rx="20" class="bgSecondary borderInfo"/>
+  <text class="lt" x="60" y="102" dominant-baseline="central">Core · 类库（不依赖任何项目）</text>
+
+  <rect x="60" y="112" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="148" y="128" text-anchor="middle" dominant-baseline="central">IPathPlanner</text>
+  <text class="cs" x="148" y="146" text-anchor="middle" dominant-baseline="central">纯算点 · IEnumerable</text>
+  <rect x="252" y="112" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="340" y="128" text-anchor="middle" dominant-baseline="central">IMotionCard</text>
+  <text class="cs" x="340" y="146" text-anchor="middle" dominant-baseline="central">Task + CancellationToken</text>
+  <rect x="444" y="112" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="532" y="128" text-anchor="middle" dominant-baseline="central">ILicenseProvider</text>
+  <text class="cs" x="532" y="146" text-anchor="middle" dominant-baseline="central">状态 + 事件（最小签名）</text>
+
+  <rect x="60" y="172" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="148" y="188" text-anchor="middle" dominant-baseline="central">Point3D</text>
+  <text class="cs" x="148" y="206" text-anchor="middle" dominant-baseline="central">record struct · 已有</text>
+  <rect x="252" y="172" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="340" y="188" text-anchor="middle" dominant-baseline="central">PathOptions</text>
+  <text class="cs" x="340" y="206" text-anchor="middle" dominant-baseline="central">record + 参数校验</text>
+  <rect x="444" y="172" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="532" y="188" text-anchor="middle" dominant-baseline="central">MotionCardDescriptor</text>
+  <text class="cs" x="532" y="206" text-anchor="middle" dominant-baseline="central">Key + DisplayName</text>
+
+  <rect x="60" y="232" width="131" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="125" y="248" text-anchor="middle" dominant-baseline="central">LinearPlanner</text>
+  <text class="cs" x="125" y="266" text-anchor="middle" dominant-baseline="central">由策略改造</text>
+  <rect x="203" y="232" width="131" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="268" y="248" text-anchor="middle" dominant-baseline="central">ArcPlanner</text>
+  <text class="cs" x="268" y="266" text-anchor="middle" dominant-baseline="central">由策略改造</text>
+  <rect x="346" y="232" width="131" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="411" y="248" text-anchor="middle" dominant-baseline="central">PlannerRegistry</text>
+  <text class="cs" x="411" y="266" text-anchor="middle" dominant-baseline="central">key → 工厂</text>
+  <rect x="489" y="232" width="131" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="554" y="248" text-anchor="middle" dominant-baseline="central">CardRegistry</text>
+  <text class="cs" x="554" y="266" text-anchor="middle" dominant-baseline="central">key → 工厂</text>
+
+  <rect x="60" y="292" width="560" height="68" rx="8" class="bgPrimary borderInfo"/>
+  <text class="ct" x="340" y="312" text-anchor="middle" dominant-baseline="central">MotionController</text>
+  <text class="cs" x="340" y="332" text-anchor="middle" dominant-baseline="central">独占循环 + CTS + 遥测事件</text>
+  <text class="cs" x="340" y="350" text-anchor="middle" dominant-baseline="central">Stop() 软停 · EStopAsync() 硬停</text>
+
+  <rect x="40" y="392" width="600" height="96" rx="20" class="bgSecondary border"/>
+  <text class="lt" x="60" y="414" dominant-baseline="central">Drivers · 类库（只引用 Core）</text>
+  <rect x="60" y="426" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="148" y="442" text-anchor="middle" dominant-baseline="central">SimulatedCard</text>
+  <text class="cs" x="148" y="460" text-anchor="middle" dominant-baseline="central">实现 IMotionCard</text>
+  <rect x="252" y="426" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="340" y="442" text-anchor="middle" dominant-baseline="central">未来品牌卡</text>
+  <text class="cs" x="340" y="460" text-anchor="middle" dominant-baseline="central">同接口 · 按 SDK 隔离</text>
+  <rect x="444" y="426" width="176" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="532" y="442" text-anchor="middle" dominant-baseline="central">厂商 SDK / DLL</text>
+  <text class="cs" x="532" y="460" text-anchor="middle" dominant-baseline="central">只出现在本层</text>
+
+  <rect x="40" y="504" width="600" height="96" rx="20" class="bgSecondary border"/>
+  <text class="lt" x="60" y="526" dominant-baseline="central">UI.WinForms · exe（组合根 = Program.cs）</text>
+  <rect x="60" y="538" width="270" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="195" y="554" text-anchor="middle" dominant-baseline="central">Program.cs</text>
+  <text class="cs" x="195" y="572" text-anchor="middle" dominant-baseline="central">唯一 new 具体类的地方 · 注册两张表</text>
+  <rect x="350" y="538" width="270" height="48" rx="8" class="bgPrimary border"/>
+  <text class="ct" x="485" y="554" text-anchor="middle" dominant-baseline="central">Form1</text>
+  <text class="cs" x="485" y="572" text-anchor="middle" dominant-baseline="central">注入 Controller · 运行时枚举 key</text>
+
+  <rect x="40" y="616" width="600" height="76" rx="20" fill="none" stroke="#cfcdc5" stroke-width="0.5" stroke-dasharray="4 4"/>
+  <text class="cs" x="60" y="636" dominant-baseline="central">未来扩展（V1 不实现，接口已预留）</text>
+  <rect x="60" y="648" width="176" height="36" rx="8" class="bgPrimary" stroke="#cfcdc5" stroke-width="0.5" stroke-dasharray="3 3"/>
+  <text class="ct" x="148" y="660" text-anchor="middle" dominant-baseline="central">UI.Wpf exe</text>
+  <text class="cs" x="148" y="675" text-anchor="middle" dominant-baseline="central">复用 Core</text>
+  <rect x="252" y="648" width="176" height="36" rx="8" class="bgPrimary" stroke="#cfcdc5" stroke-width="0.5" stroke-dasharray="3 3"/>
+  <text class="ct" x="340" y="660" text-anchor="middle" dominant-baseline="central">IpcCardProxy</text>
+  <text class="cs" x="340" y="675" text-anchor="middle" dominant-baseline="central">实现 IMotionCard</text>
+  <rect x="444" y="648" width="176" height="36" rx="8" class="bgPrimary" stroke="#cfcdc5" stroke-width="0.5" stroke-dasharray="3 3"/>
+  <text class="ct" x="532" y="660" text-anchor="middle" dominant-baseline="central">授权进程</text>
+  <text class="cs" x="532" y="675" text-anchor="middle" dominant-baseline="central">ILicenseProvider</text>
+</svg>
