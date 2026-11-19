@@ -10,4 +10,8 @@
     <Folder Include="Proxies\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MotionStrategyLab.Core\MotionStrategyLab.Core.csproj" />
+  </ItemGroup>
+
 </Project>
