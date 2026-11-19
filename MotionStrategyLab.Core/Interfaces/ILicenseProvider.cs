@@ -5,11 +5,11 @@
     /// 上层只问 IsLicensed，不关心授权来自哪里。
     /// 授权失效时上层必须立即停机——宁可误停，不可失控。
     /// </summary>
-    /// <remark>
+    /// <remarks>
     /// 提前预留的接口
-    /// 关于许可的提供，如果没有许可，或者许可变更，
+    /// 关于许可的提供，如果没有授权，或者授权变更，
     /// 上层调用可以根据返回的结果，或者事件处理的结果来进行判定
-    /// </remark>
+    /// </remarks>
     public interface ILicenseProvider:IDisposable
     {
         /// <summary>
